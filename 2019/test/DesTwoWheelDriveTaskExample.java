@@ -65,7 +65,7 @@ public class DesTwoWheelDriveTaskExample extends Robot {
         leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
         rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
 
-
+        // Instantiating a two wheel drivetrain
         drivetrain = new TwoWheelDirectDrivetrain(leftWheel, rightWheel);
     }
 
