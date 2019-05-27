@@ -33,22 +33,19 @@
 
 package test;
 
-import android.text.method.Touch;
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.RobotLog;
 
 
-import team25core.GamepadTask;
 import team25core.Robot;
 import team25core.RobotEvent;
 import team25core.TankDriveTask;
-import team25core.TouchSensorCriteriaDes;
+import team25core.TouchSensorCriteria;
 import team25core.TwoWheelDirectDrivetrain;
 
-@TeleOp(name = "DesFreezeTag")
+@TeleOp(name = "FreezeTagCoda")
 //@Disabled
 public class Freezetagbots extends Robot {
 
@@ -60,13 +57,13 @@ public class Freezetagbots extends Robot {
     private TwoWheelDirectDrivetrain drivetrain;
     private TankDriveTask driveTask;
     private double value;
-    private boolean leftispressed;
-    private boolean rightispressed;
+    //private boolean leftispressed;
+    //private boolean rightispressed;
 
+    private TouchSensorCriteria goTouchSensorCriteria;
+    private TouchSensorCriteria stopTouchSensorCriteria;
 
-    public TouchSensorCriteriaDes touchSensorCriteriaDes;
-
-    private static final int TICKS_PER_INCH = 79;
+    //private static final int TICKS_PER_INCH = 79;
 
     @Override
     public void handleEvent(RobotEvent e)
@@ -79,12 +76,13 @@ public class Freezetagbots extends Robot {
     {
         leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
         rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
+
         touchGo = hardwareMap.get (TouchSensor.class, "touchGo");
         touchStop = hardwareMap.get (TouchSensor.class, "touchStop");
-        drivetrain = new TwoWheelDirectDrivetrain(leftWheel,rightWheel);
-        touchSensorCriteriaDes = new TouchSensorCriteriaDes(touchGo, touchStop);
 
-        //this.addTask(new GamepadTask(this, GamepadTask.GamepadNumber.GAMEPAD_1));
+        drivetrain = new TwoWheelDirectDrivetrain(leftWheel,rightWheel);
+        goTouchSensorCriteria = new TouchSensorCriteria(touchGo);
+        stopTouchSensorCriteria = new TouchSensorCriteria(touchStop);
 
     }
 
@@ -92,7 +90,8 @@ public class Freezetagbots extends Robot {
     public void start()
     {
         // Instantiating a two wheel drivetrain
-        driveTask = new TankDriveTask(this, drivetrain, touchSensorCriteriaDes);
+        driveTask = new TankDriveTask(this, drivetrain, goTouchSensorCriteria,
+                                       stopTouchSensorCriteria);
         this.addTask(driveTask);
     }
 //    @Override
