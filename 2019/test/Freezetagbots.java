@@ -45,7 +45,7 @@ import team25core.TankDriveTask;
 import team25core.TouchSensorCriteria;
 import team25core.TwoWheelDirectDrivetrain;
 
-@TeleOp(name = "FreezeTagCoda")
+@TeleOp(name = "FreezeTagCoda3")
 //@Disabled
 public class Freezetagbots extends Robot {
 
@@ -81,8 +81,8 @@ public class Freezetagbots extends Robot {
         touchStop = hardwareMap.get (TouchSensor.class, "touchStop");
 
         drivetrain = new TwoWheelDirectDrivetrain(leftWheel,rightWheel);
-        goTouchSensorCriteria = new TouchSensorCriteria(touchGo);
-        stopTouchSensorCriteria = new TouchSensorCriteria(touchStop);
+        goTouchSensorCriteria = new TouchSensorCriteria(touchGo, "goSensor");
+        stopTouchSensorCriteria = new TouchSensorCriteria(touchStop, "stopSensor");
 
     }
 
